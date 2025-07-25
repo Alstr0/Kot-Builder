@@ -59,7 +59,7 @@ func _process(delta: float) -> void:
 		range_l = int(abs(sprite_left.position.x - 21) / 84.5)
 		range_r = int(abs(sprite_right.position.x - 21) / 84.5)
 		print(range_l)
-		print(range_r)
+		print(range_r)  	# ATTENTION FIXME BUG WHATEVER!!!
 		
 		path.curve.set_point_position(0, sprite_left.position)
 		path.curve.set_point_position(1, sprite_right.position)
