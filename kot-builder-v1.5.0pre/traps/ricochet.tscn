@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdm318exg1wig"]
+
+[ext_resource type="Script" uid="uid://blw71wci4ntnq" path="res://traps/ricochet.gd" id="1_w8yjy"]
+[ext_resource type="Texture2D" uid="uid://cl2nqwj55wu3y" path="res://traps/ricochet.png" id="2_h6x0p"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ih7ia"]
+radius = 20.0
+
+[node name="Rico Test" type="Node2D" groups=["ricochet", "trap"]]
+z_index = 1525
+script = ExtResource("1_w8yjy")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_h6x0p")
+flip_h = true
+
+[node name="Area2D" type="Area2D" parent="." groups=["ricochet", "trap"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ih7ia")
+
+[node name="RayCasts1" type="Node2D" parent="."]
+
+[node name="RayCastUp" type="RayCast2D" parent="RayCasts1"]
+target_position = Vector2(0, -30)
+
+[node name="RayCastRight" type="RayCast2D" parent="RayCasts1"]
+target_position = Vector2(30, 0)
+
+[node name="RayCastLeft" type="RayCast2D" parent="RayCasts1"]
+target_position = Vector2(-30, 0)
+
+[node name="RayCastDown" type="RayCast2D" parent="RayCasts1"]
+target_position = Vector2(0, 30)
+
+[node name="RayCasts2" type="Node2D" parent="."]
+rotation = 0.785398
+
+[node name="RayCast3" type="RayCast2D" parent="RayCasts2"]
+target_position = Vector2(0, -30)
+
+[node name="RayCast0" type="RayCast2D" parent="RayCasts2"]
+target_position = Vector2(30, 0)
+
+[node name="RayCast2" type="RayCast2D" parent="RayCasts2"]
+target_position = Vector2(-30, 0)
+
+[node name="RayCast1" type="RayCast2D" parent="RayCasts2"]
+target_position = Vector2(0, 30)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

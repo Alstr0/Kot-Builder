@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbi1pbqe0o368"]
+
+[ext_resource type="Script" uid="uid://ccunsfyi885qv" path="res://mini_blocks/cobblestone.gd" id="1_p14bg"]
+[ext_resource type="Texture2D" uid="uid://blgwgce2ujq1g" path="res://mini_blocks/cobblestone.png" id="2_3n0hw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vh4w0"]
+size = Vector2(16.1, 16.1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kj5ri"]
+size = Vector2(18, 18)
+
+[sub_resource type="Animation" id="Animation_rs23v"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_7mi7t"]
+resource_name = "animation"
+length = 0.625
+step = 0.125
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:offset:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, 0.5, -0.05, 0, 0.05, 0, -0.2, -0.05, 0, 0.05, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.125, 0.375, 0.625)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_618c3"]
+_data = {
+&"RESET": SubResource("Animation_rs23v"),
+&"animation": SubResource("Animation_7mi7t")
+}
+
+[node name="Cobblestone" type="StaticBody2D" groups=["block"]]
+z_index = 1550
+scale = Vector2(5.25, 5.25)
+collision_layer = 66
+collision_mask = 66
+script = ExtResource("1_p14bg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vh4w0")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(8, 8, 8, -7.6, 7.15, -8, -7.15, -8, -8, -7.6, -8, 8)
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_3n0hw")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_kj5ri")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_618c3")
+}
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

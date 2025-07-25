@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://bik24p3pbvkgc"]
+
+[ext_resource type="Texture2D" uid="uid://csj2c755wry6x" path="res://traps/homing_cannon.png" id="1_tt227"]
+[ext_resource type="Script" uid="uid://df116siuunvgp" path="res://traps/homing_cannon.gd" id="2_1lelb"]
+
+[node name="Homing Cannon" type="Sprite2D" groups=["homing_cannon", "trap"]]
+z_index = 1650
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_tt227")
+offset = Vector2(-14, 0)
+script = ExtResource("2_1lelb")
+
+[node name="Marker" type="Marker2D" parent="."]
+position = Vector2(-25.35, 0)
+scale = Vector2(4, 4)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.7
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

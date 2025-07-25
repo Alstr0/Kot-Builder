@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dywcbtiupn7xv"]
+
+[ext_resource type="Script" uid="uid://qlhtssqwrf0a" path="res://traps/saw.gd" id="1_740mj"]
+[ext_resource type="Texture2D" uid="uid://ch2rd14ndmost" path="res://traps/saw.png" id="2_qq2v8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o8ciu"]
+radius = 17.5
+
+[node name="Saw" type="Area2D" groups=["saw", "trap"]]
+script = ExtResource("1_740mj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1600
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("2_qq2v8")
+offset = Vector2(2, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_o8ciu")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

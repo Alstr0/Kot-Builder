@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bytmvo6d04xhm"]
+
+[ext_resource type="Texture2D" uid="uid://jvdje6awrme" path="res://traps/spider.png" id="1_cw0tr"]
+[ext_resource type="Script" uid="uid://bygj0wsyr4wr7" path="res://traps/spider.gd" id="1_xh2i2"]
+[ext_resource type="Texture2D" uid="uid://cgfir2ufevjeq" path="res://traps/web.png" id="2_synkm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uvuvn"]
+radius = 42.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oirjr"]
+size = Vector2(502, 500)
+
+[node name="Spider" type="Node2D" groups=["spider", "trap"]]
+z_index = 1400
+script = ExtResource("1_xh2i2")
+
+[node name="Sprite" type="Sprite2D" parent="." groups=["spider", "trap"]]
+z_index = 240
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("1_cw0tr")
+
+[node name="SpiderCollision" type="Area2D" parent="." groups=["spider", "trap"]]
+scale = Vector2(0.16, 0.16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpiderCollision"]
+shape = SubResource("CircleShape2D_uvuvn")
+
+[node name="Web" type="Area2D" parent="." groups=["web"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Web"]
+position = Vector2(0, 10)
+shape = SubResource("RectangleShape2D_oirjr")
+
+[node name="Sprite" type="Sprite2D" parent="Web"]
+visible = false
+z_index = -1400
+scale = Vector2(1.175, 1.175)
+texture = ExtResource("2_synkm")
+
+[connection signal="body_entered" from="SpiderCollision" to="." method="_on_spider_collision_body_entered"]
+[connection signal="body_entered" from="Web" to="." method="_on_web_body_entered"]
+[connection signal="body_exited" from="Web" to="." method="_on_web_body_exited"]

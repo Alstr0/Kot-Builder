@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmgdcte50yy45"]
+
+[ext_resource type="Script" uid="uid://1qg4rgogjh6m" path="res://traps/warder.gd" id="1_32ckx"]
+[ext_resource type="Texture2D" uid="uid://dvtoin5stn6i" path="res://traps/warder.png" id="2_qbsep"]
+[ext_resource type="Texture2D" uid="uid://cvwsx8plf6odm" path="res://traps/sphere.png" id="3_6qf72"]
+
+[sub_resource type="Curve2D" id="Curve2D_vob4n"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 3
+
+[node name="Warder" type="Node2D" groups=["trap", "warder"]]
+script = ExtResource("1_32ckx")
+
+[node name="Line2D" type="Line2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.686275)
+z_index = 1600
+points = PackedVector2Array(0, 0, 0, 0)
+width = 8.0
+default_color = Color(1, 0.835294, 0, 1)
+
+[node name="Sphere" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.686275)
+z_index = 2424
+texture_filter = 1
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_6qf72")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_vob4n")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+rotates = false
+
+[node name="Sprite" type="Sprite2D" parent="Path2D/PathFollow2D"]
+z_index = 1600
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("2_qbsep")
+
+[node name="Marker2D" type="Marker2D" parent="Path2D/PathFollow2D/Sprite"]
+position = Vector2(0, 42.25)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

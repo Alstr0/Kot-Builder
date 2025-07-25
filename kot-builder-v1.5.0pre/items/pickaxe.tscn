@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://cynjisueqoe8y"]
+
+[ext_resource type="Texture2D" uid="uid://chw8mdebg1dao" path="res://items/pickaxe.png" id="1_g01t4"]
+[ext_resource type="Script" uid="uid://c0le15lt16ntc" path="res://items/pickaxe.gd" id="1_mrshu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sx36j"]
+size = Vector2(16, 16)
+
+[sub_resource type="Animation" id="Animation_883rn"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_2yi0a"]
+resource_name = "animation"
+length = 4.0
+step = 1.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:offset:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0, 0),
+"points": PackedFloat32Array(0, 0, 0, 0, 0, 2, -0.25, 0, 0.25, 0, 0, 0, 0, 0, 0, -2.5, -0.25, 0, 0.25, 0, 0, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1, 2, 3, 4)
+}
+
+[sub_resource type="Animation" id="Animation_ukxgs"]
+resource_name = "new_animation"
+step = 1.0
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i7ydp"]
+_data = {
+&"RESET": SubResource("Animation_883rn"),
+&"animation": SubResource("Animation_2yi0a"),
+&"new_animation": SubResource("Animation_ukxgs")
+}
+
+[node name="Pickaxe" type="Area2D" groups=["item"]]
+scale = Vector2(4.2, 4.2)
+script = ExtResource("1_mrshu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sx36j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1400
+texture_filter = 1
+texture = ExtResource("1_g01t4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_i7ydp")
+}
+autoplay = "animation"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

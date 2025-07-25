@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmrbsorbqtmi5"]
+
+[ext_resource type="Script" uid="uid://cfp7rv6nonbir" path="res://simple_rotateable_trap.gd" id="2_ejbfg"]
+
+[node name="Simple Rotateable Trap" type="Sprite2D"]
+scale = Vector2(0.6, 0.6)
+script = ExtResource("2_ejbfg")

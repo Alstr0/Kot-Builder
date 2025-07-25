@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://bktaujrt2vh1m"]
+
+[ext_resource type="Script" uid="uid://sydjgw5xmu7l" path="res://mini_blocks/gravel.gd" id="1_n213x"]
+[ext_resource type="Texture2D" uid="uid://db8dk1ie4bejh" path="res://mini_blocks/gravel.png" id="2_u23tq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ocmqh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vh4w0"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kj5ri"]
+
+[node name="Gravel" type="RigidBody2D" groups=["block", "gravel"]]
+z_index = 1550
+disable_mode = 1
+collision_layer = 66
+collision_mask = 66
+mass = 2.0
+physics_material_override = SubResource("PhysicsMaterial_ocmqh")
+gravity_scale = 0.0
+sleeping = true
+lock_rotation = true
+freeze = true
+linear_velocity = Vector2(100, 0)
+script = ExtResource("1_n213x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(5.25, 5.25)
+shape = SubResource("RectangleShape2D_vh4w0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(5.25, 5.25)
+texture = ExtResource("2_u23tq")
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(5.25, 5.25)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_kj5ri")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

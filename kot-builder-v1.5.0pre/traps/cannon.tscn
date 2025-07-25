@@ -1,0 +1,103 @@
+[gd_scene load_steps=6 format=3 uid="uid://o8frf43mc6cg"]
+
+[ext_resource type="Texture2D" uid="uid://dfct7gft5qkhw" path="res://traps/cannon.png" id="1_q3usk"]
+[ext_resource type="Script" uid="uid://b31sfbyf6wjgu" path="res://traps/cannon.gd" id="2_j1645"]
+
+[sub_resource type="Animation" id="Animation_ec4rs"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.75, -0.0005, 0, 0.0005, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.75, -0.0005, 0, 0.0005, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_t42nk"]
+resource_name = "fire"
+length = 0.2
+step = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire"
+}]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.02, 0, 0.02, 0, 0.8, -0.02, 0, 0.02, 0, 1.25, -0.02, 0, 0.02, 0, 1, -0.02, 0, 0.02, 0),
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.2)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(1, -0.02, 0, 0.02, 0, 1.25, -0.02, 0, 0.02, 0, 0.8, -0.02, 0, 0.02, 0, 1, -0.02, 0, 0.02, 0),
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7cha4"]
+_data = {
+&"RESET": SubResource("Animation_ec4rs"),
+&"fire": SubResource("Animation_t42nk")
+}
+
+[node name="Cannon" type="Sprite2D" groups=["cannon", "trap"]]
+z_index = 1650
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_q3usk")
+offset = Vector2(0, 4)
+script = ExtResource("2_j1645")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_q3usk")
+offset = Vector2(0, 4)
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-48, 0)
+scale = Vector2(4, 4)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.7
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7cha4")
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

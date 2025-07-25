@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://banpw78oc23y6"]
+
+[ext_resource type="Script" uid="uid://boe5f1r4jpktg" path="res://orbs/yellow_orb.gd" id="1_m5bdq"]
+[ext_resource type="Texture2D" uid="uid://yqcqsi4kbdvy" path="res://orbs/yellow.png" id="2_8ub2t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kif4i"]
+radius = 30.0
+
+[node name="Yellow Orb" type="Area2D" groups=["orb"]]
+z_index = 1850
+script = ExtResource("1_m5bdq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_kif4i")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_8ub2t")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

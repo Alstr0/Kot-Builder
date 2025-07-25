@@ -1,0 +1,174 @@
+[gd_scene load_steps=9 format=3 uid="uid://bdaiqcvtp3rqe"]
+
+[ext_resource type="Texture2D" uid="uid://rrlcm878kchx" path="res://traps/bh.png" id="1_00wsg"]
+[ext_resource type="Script" uid="uid://cd7pygn0ug5js" path="res://traps/bloodhound.gd" id="1_mhs7l"]
+[ext_resource type="Texture2D" uid="uid://bhcssudx1a0rd" path="res://arrow.png" id="3_c8hkl"]
+
+[sub_resource type="Curve2D" id="Curve2D_c8hkl"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mhs7l"]
+size = Vector2(48, 72)
+
+[sub_resource type="Animation" id="Animation_mhs7l"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Sprite:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_00wsg"]
+resource_name = "idle"
+length = 1.2
+loop_mode = 1
+step = 0.1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Sprite:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1.02, -0.25, 0, 0.25, 0, 0.98, -0.25, 0, 0.25, 0, 1.02, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6, 1.2)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Sprite:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0.98, -0.25, 0, 0.25, 0, 1.02, -0.25, 0, 0.25, 0, 0.98, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6, 1.2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c8hkl"]
+_data = {
+&"RESET": SubResource("Animation_mhs7l"),
+&"idle": SubResource("Animation_00wsg")
+}
+
+[node name="Bloodhound" type="Node2D" groups=["bloodhound"]]
+script = ExtResource("1_mhs7l")
+
+[node name="Path" type="Path2D" parent="."]
+position = Vector2(0, 4)
+curve = SubResource("Curve2D_c8hkl")
+
+[node name="PathFollow" type="PathFollow2D" parent="Path"]
+loop = false
+
+[node name="Body" type="RigidBody2D" parent="Path/PathFollow"]
+collision_mask = 0
+gravity_scale = 0.0
+
+[node name="Node2D" type="Node2D" parent="Path/PathFollow/Body"]
+position = Vector2(0, 40)
+scale = Vector2(0.8, 0.8)
+
+[node name="Sprite" type="Sprite2D" parent="Path/PathFollow/Body/Node2D"]
+texture = ExtResource("1_00wsg")
+offset = Vector2(-1, -60)
+
+[node name="Collision" type="CollisionShape2D" parent="Path/PathFollow/Body"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_mhs7l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Path/PathFollow/Body"]
+libraries = {
+&"": SubResource("AnimationLibrary_c8hkl")
+}
+autoplay = "idle"
+
+[node name="ControlTransform" type="Node2D" parent="."]
+position = Vector2(0, 50)
+
+[node name="Area" type="Area2D" parent="ControlTransform"]
+
+[node name="CollisionCheck" type="CollisionPolygon2D" parent="ControlTransform/Area"]
+polygon = PackedVector2Array(42.25, 8, -42.25, 8, -42.25, -4, 42.25, -4)
+
+[node name="CollisionCheck2" type="Polygon2D" parent="ControlTransform/Area"]
+z_index = 4000
+polygon = PackedVector2Array(42.25, 8, -42.25, 8, -42.25, -4, 42.25, -4)
+
+[node name="RayCastLG" type="RayCast2D" parent="ControlTransform"]
+position = Vector2(-84, 0)
+target_position = Vector2(0, 24)
+collision_mask = 128
+collide_with_areas = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ControlTransform/RayCastLG"]
+self_modulate = Color(1, 0, 0, 1)
+z_index = -1
+position = Vector2(0, 12)
+rotation = 1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_c8hkl")
+
+[node name="RayCastLW" type="RayCast2D" parent="ControlTransform"]
+position = Vector2(-44, -38)
+target_position = Vector2(-36, 0)
+collision_mask = 128
+collide_with_areas = true
+
+[node name="Sprite2D3" type="Sprite2D" parent="ControlTransform/RayCastLW"]
+z_index = -1
+position = Vector2(-28, 1.98952e-13)
+rotation = 3.14159
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_c8hkl")
+
+[node name="RayCastRG" type="RayCast2D" parent="ControlTransform"]
+position = Vector2(84, 0)
+target_position = Vector2(0, 24)
+collision_mask = 128
+collide_with_areas = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="ControlTransform/RayCastRG"]
+self_modulate = Color(1, 0, 0, 1)
+z_index = -1
+position = Vector2(2.84217e-14, 12)
+rotation = 1.5708
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_c8hkl")
+
+[node name="RayCastRW" type="RayCast2D" parent="ControlTransform"]
+position = Vector2(44, -38)
+target_position = Vector2(36, 0)
+collision_mask = 128
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="Sprite2D4" type="Sprite2D" parent="ControlTransform/RayCastRW"]
+z_index = -1
+position = Vector2(28, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("3_c8hkl")
+
+[connection signal="body_entered" from="ControlTransform/Area" to="." method="_on_area_body_entered"]

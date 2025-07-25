@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://bt4i6i66g3yrw"]
+
+[ext_resource type="Script" uid="uid://dymkc46jorg6b" path="res://traps/fly.gd" id="1_pvouc"]
+[ext_resource type="Texture2D" uid="uid://dm47wxc3tyfak" path="res://traps/fly.png" id="2_a6pbt"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c5rs4"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bcrbh"]
+radius = 8.0
+
+[node name="Fly" type="RigidBody2D" groups=["fly", "trap"]]
+z_index = 1600
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_pvouc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 4
+scale = Vector2(0.66, 0.66)
+texture = ExtResource("2_a6pbt")
+offset = Vector2(-3, -2)
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 0, 0)
+width = 6.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c5rs4")
+
+[node name="Area2D" type="Area2D" parent="."]
+visible = false
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_bcrbh")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

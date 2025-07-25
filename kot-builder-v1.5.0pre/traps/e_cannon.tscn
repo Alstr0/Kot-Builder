@@ -1,0 +1,198 @@
+[gd_scene load_steps=8 format=3 uid="uid://dd66klicra8ia"]
+
+[ext_resource type="Script" uid="uid://cojdu7bln6ssa" path="res://traps/e_cannon.gd" id="1_dfkgs"]
+[ext_resource type="Texture2D" uid="uid://fgvo7ir8kqtm" path="res://traps/ecannon.png" id="1_jby8e"]
+[ext_resource type="Texture2D" uid="uid://bjjw6s5bqwn2o" path="res://traps/laser_for_okt.png" id="2_axrvd"]
+
+[sub_resource type="Animation" id="Animation_ec4rs"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:scale:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.75, -0.0005, 0, 0.0005, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:scale:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0.75, -0.0005, 0, 0.0005, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SpriteLaser:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.1, 0, 0.1, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionLaser:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionBody:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_t42nk"]
+resource_name = "fire"
+length = 0.25
+step = 0.05
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"fire"
+}]
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.75, -0.02, 0, 0.02, 0, 0.6, -0.02, 0, 0.02, 0, 0.9, -0.02, 0, 0.02, 0, 0.75, -0.02, 0, 0.02, 0),
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.25)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0.75, -0.02, 0, 0.02, 0, 0.9, -0.02, 0, 0.02, 0, 0.6, -0.02, 0, 0.02, 0, 0.75, -0.02, 0, 0.02, 0),
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.25)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SpriteLaser:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.1, 0, 0.1, 0, 2, -0.1, 0, 0.1, 0, 0, -0.1, 0, 0.1, 0),
+"times": PackedFloat32Array(0, 0.05, 0.25)
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionLaser:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("CollisionBody:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7cha4"]
+_data = {
+&"RESET": SubResource("Animation_ec4rs"),
+&"fire": SubResource("Animation_t42nk")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jby8e"]
+resource_local_to_scene = true
+size = Vector2(63, 63)
+
+[node name="ECannon" type="Area2D" groups=["ecannon"]]
+z_index = 2100
+collision_layer = 0
+collision_mask = 193
+script = ExtResource("1_dfkgs")
+
+[node name="Line2D" type="Line2D" parent="."]
+visible = false
+points = PackedVector2Array(0, 0, 0, 0)
+width = 8.0
+
+[node name="SpriteLaser" type="Sprite2D" parent="."]
+scale = Vector2(1, 1e-05)
+texture = ExtResource("2_axrvd")
+offset = Vector2(-4, 0)
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("1_jby8e")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.7
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7cha4")
+}
+
+[node name="RayCast" type="RayCast2D" parent="."]
+position = Vector2(-31.5, 0)
+target_position = Vector2(-4225, 0)
+collision_mask = 192
+collide_with_areas = true
+
+[node name="CollisionLaser" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, -8, 0, 8, -3, 8, -3, -8)
+disabled = true
+
+[node name="CollisionBody" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jby8e")
+disabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

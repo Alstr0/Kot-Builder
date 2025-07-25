@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dn0olwsj72vk3"]
+
+[ext_resource type="Texture2D" uid="uid://ct5gybvsugkut" path="res://Totem.png" id="1_obyfb"]
+[ext_resource type="Script" uid="uid://dngd1jl8l4fpy" path="res://totem.gd" id="2_r4hhf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ovhru"]
+radius = 48.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alejs"]
+size = Vector2(108, 16)
+
+[node name="Totem" type="Area2D"]
+script = ExtResource("2_r4hhf")
+
+[node name="Totem" type="Sprite2D" parent="."]
+scale = Vector2(0.36, 0.36)
+texture = ExtResource("1_obyfb")
+offset = Vector2(0, 30)
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 42)
+shape = SubResource("CircleShape2D_ovhru")
+
+[node name="Collision2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 60)
+shape = SubResource("RectangleShape2D_alejs")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
