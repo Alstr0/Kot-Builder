@@ -11,13 +11,13 @@ var AIR_SPEED := 2.036 * sp  					#2
 var JUMP_VELOCITY := -313.0 * jm * 1.026
 var WALL_JUMP_VELOCITY := -334.0 * jm * 0.978	#-341.74 * jm
 var TRAMBOLINE_JUMP_VELOCITY := -486.96 * jm
-var TRAMBOLINE_BOOST_VELOCITY := 300
+var TRAMBOLINE_BOOST_VELOCITY := 300.0
 var max_fall_speed := 160.0  					#1
 var max_wall_speed := 1002.1
-const jump_boost :float = 10
-const wall_boost :float = 25  					#2
-const ceiling_boost :float = 16 # It was 18
-const tramboline_boost :float = 15
+const jump_boost :float = 10.0
+const wall_boost :float = 25.0  					#2
+const ceiling_boost :float = 16.0 # It was 18
+const tramboline_boost :float = 15.0
 const gravity := 2.0  							#15
 @onready var current_gravity := gravity
 var reached_chest := false
@@ -397,7 +397,7 @@ func switch_gravity() -> void:
 func _on_timer_timeout() -> void:
 	clicked = false
 
-func no_collision() -> void:   # BUG
+func no_collision() -> void:   # BUG FIXME
 	collisionz.disabled = true
 	collisionx.disabled = true
 

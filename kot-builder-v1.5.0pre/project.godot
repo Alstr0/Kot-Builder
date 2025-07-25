@@ -16,6 +16,10 @@ run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://thief/thief1.png"
 
+[autoload]
+
+Main="*res://main.gd"
+
 [debug]
 
 gdscript/warnings/unused_parameter=0
@@ -74,6 +78,7 @@ click={
 2d_physics/layer_3="Fly"
 2d_physics/layer_7="Mini Blocks"
 2d_physics/layer_8="Walls"
+2d_physics/layer_9="Air"
 
 [rendering]
 

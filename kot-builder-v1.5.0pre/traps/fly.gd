@@ -1,8 +1,8 @@
 extends RigidBody2D
 
-var speed := 275
-var max_speed := 275
-var base_speed := 275
+var speed := 275.0
+var max_speed := 275.0
+var base_speed := 275.0
 var close_area := 8
 var base_close_area := 8
 var target :Vector2
@@ -54,5 +54,5 @@ func _on_body_entered(body: Node2D) -> void:
 		body.position = Vector2(-100, -100)
 		sprite.self_modulate += body.sprite.self_modulate / 2
 		max_speed = base_speed + sprite.self_modulate.a * 60
-		close_area = maxi(0, close_area - sprite.self_modulate.a * 4)
+		close_area = int(max(0, close_area - sprite.self_modulate.a * 4))
  

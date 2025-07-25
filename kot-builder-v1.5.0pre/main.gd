@@ -6,7 +6,7 @@ var door_placed := false
 var big := false
 var tool:= 0
 
-@onready var door := %Door
+@onready var door: Sprite2D = %Door 	# ATTENTION BUG
 const srt = preload("res://simple_rotateable_trap.tscn")
 const platform = preload("res://boards/platform.tscn")
 const trampoline = preload("res://boards/trampoline.tscn")
@@ -67,7 +67,8 @@ var no_view := true
 var change_view := true
 
 var set_end_point := false
-var get_end_point 
+var get_end_point
+@onready var label_web: Label = %LabelWeb 	# ATTENTION BUG 
 
 func _process(delta: float) -> void:
 	var pos := get_global_mouse_position()
@@ -84,16 +85,16 @@ func _process(delta: float) -> void:
 		%LabelRoaster.get_child(0).value = roaster_time_left * 100
 		%LabelRoaster.get_child(0).max_value = roaster_speed * 100
 	
-	if web:
+	if web and label_web != null: 	# FIXME
 		if show_web_bar:
-			%LabelWeb.visible = true
+			label_web.visible = true
 		else:
-			%LabelWeb.visible = false
+			label_web.visible = false
 		if player != null:
-			%LabelWeb.get_child(0).value = player.web_timer.time_left * 100
-			%LabelWeb.get_child(0).max_value = player.web_timer.wait_time * 100
-	else:
-		%LabelWeb.visible = false
+			label_web.get_child(0).value = player.web_timer.time_left * 100
+			label_web.get_child(0).max_value = player.web_timer.wait_time * 100
+	elif label_web != null:
+		label_web.visible = false
 	
 	if Input.is_action_just_pressed("click") and not playing and spawn and not first_time:
 		spawn_player()
@@ -332,7 +333,8 @@ func _process(delta: float) -> void:
 									is_deleted_tool = true
 									web -= 1
 									if web == 0:
-										%LabelWeb.visible = true
+										if label_web != null:
+											label_web.visible = true 	# FIXME
 							if is_deleted_tool == false:
 								var instance := spider.instantiate()
 								instance.position = pos
@@ -584,12 +586,12 @@ func play_mode() -> void:
 	%Stop.visible = true
 	roaster = null
 	web = 0
-	%LabelRoaster.visible = false
-	%LabelWeb.visible = false
+	%LabelRoaster.visible = false 
+	if label_web != null: label_web.visible = false 	# FIXME
 	for i in range(child_count, get_child_count()):
 		if get_child(i).is_in_group("spider"):
 			web += 1
-			%LabelWeb.visible = true
+			if label_web != null: label_web.visible = true  	# FIXME
 		if get_child(i).is_in_group("roaster"):
 			roaster = get_child(i)
 			%LabelRoaster.visible = true

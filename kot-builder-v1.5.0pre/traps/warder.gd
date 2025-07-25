@@ -2,7 +2,7 @@ extends Node2D
 
 var bullet := preload("res://traps/bullet.tscn")
 var count := 0
-var speed := 84
+var speed := 84.5
 
 @onready var line: Line2D = $Line2D
 @onready var sphere: Sprite2D = $Sphere
@@ -23,9 +23,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	playing = get_parent().playing
-	if playing == false:
+	if playing == false and removed_once == false:
 		timer.stop()
-		removed_once == true
+		removed_once = true
 		line.visible = true
 		sphere.visible = true
 		path_follow.progress = 0
@@ -37,6 +37,7 @@ func _process(delta: float) -> void:
 		if timer.is_stopped():
 			timer.start()
 			fire()
+		removed_once = false
 		line.visible = false
 		sphere.visible = false
 		path_follow.progress += speed * delta

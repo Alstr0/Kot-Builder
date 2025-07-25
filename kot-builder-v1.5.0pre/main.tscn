@@ -1,8 +1,9 @@
-[gd_scene load_steps=47 format=3 uid="uid://bfyrucp1ct1f5"]
+[gd_scene load_steps=49 format=4 uid="uid://bfyrucp1ct1f5"]
 
 [ext_resource type="Script" uid="uid://iffix1pfrfox" path="res://main.gd" id="1_3k5sm"]
 [ext_resource type="Texture2D" uid="uid://bc5yotui05pjy" path="res://empty-big.png" id="3_es6bi"]
 [ext_resource type="Script" uid="uid://crfoi36nahvx4" path="res://tile_map.gd" id="4_nkoyi"]
+[ext_resource type="Texture2D" uid="uid://da2i4m12dthcn" path="res://nothing169x169.png" id="4_ok6jj"]
 [ext_resource type="Texture2D" uid="uid://bo3vnwonlgy5s" path="res://full.png" id="4_sngsm"]
 [ext_resource type="Texture2D" uid="uid://cgag3x4ne6f18" path="res://Door.png" id="5_xqeel"]
 [ext_resource type="Texture2D" uid="uid://0yt6ahcjigmi" path="res://boards/trampoline.png" id="6_u4qis"]
@@ -100,11 +101,20 @@ texture_region_size = Vector2i(169, 169)
 6:3/0 = 0
 6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-84.5, -84.5, 84.5, -84.5, 84.5, 84.5, -84.5, 84.5)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0rl1p"]
+texture = ExtResource("4_ok6jj")
+texture_region_size = Vector2i(169, 169)
+0:0/0 = 0
+0:0/0/physics_layer_1/polygon_0/points = PackedVector2Array(-84.5, -84.5, 84.5, -84.5, 84.5, 84.5, -84.5, 84.5)
+
 [sub_resource type="TileSet" id="TileSet_gwu4u"]
 tile_size = Vector2i(169, 169)
 physics_layer_0/collision_layer = 135
 physics_layer_0/collision_mask = 131
+physics_layer_1/collision_layer = 256
+physics_layer_1/collision_mask = 256
 sources/0 = SubResource("TileSetAtlasSource_rrytu")
+sources/1 = SubResource("TileSetAtlasSource_0rl1p")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_rc228"]
 load_path = "res://.godot/imported/Door.png-69503ba9367bcfa2ab8de46ca34fdb85.ctex"
@@ -407,6 +417,7 @@ texture = ExtResource("3_es6bi")
 [node name="TileMap" type="TileMapLayer" parent="." groups=["base"]]
 unique_name_in_owner = true
 z_index = 1500
+tile_map_data = PackedByteArray("AAAAAAAAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAIAAQAAAAAAAAAAAAMAAQAAAAAAAAABAAAAAQAAAAAAAAABAAEAAQAAAAAAAAABAAIAAQAAAAAAAAABAAMAAQAAAAAAAAACAAAAAQAAAAAAAAACAAEAAQAAAAAAAAACAAIAAQAAAAAAAAACAAMAAQAAAAAAAAADAAAAAQAAAAAAAAADAAEAAQAAAAAAAAADAAIAAQAAAAAAAAADAAMAAQAAAAAAAAAEAAAAAQAAAAAAAAAEAAEAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAAFAAAAAQAAAAAAAAAFAAEAAQAAAAAAAAAFAAIAAQAAAAAAAAAFAAMAAQAAAAAAAAAGAAAAAQAAAAAAAAAGAAEAAQAAAAAAAAAGAAIAAQAAAAAAAAAGAAMAAQAAAAAAAAD/////AQAAAAAAAAD//wQAAQAAAAAAAAAHAAQAAQAAAAAAAAAHAP//AQAAAAAAAAA=")
 tile_set = SubResource("TileSet_gwu4u")
 script = ExtResource("4_nkoyi")
 
@@ -563,8 +574,6 @@ item_0/icon = ExtResource("15_51c15")
 item_1/icon = ExtResource("16_ftptf")
 item_2/icon = ExtResource("17_xf8uf")
 item_3/icon = ExtResource("18_no56k")
-item_3/selectable = false
-item_3/disabled = true
 item_4/icon = ExtResource("19_ywj1u")
 item_5/icon = ExtResource("20_j0pdg")
 item_6/icon = ExtResource("7_6sq1a")
