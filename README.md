@@ -1,4 +1,4 @@
-This is a fan made dungeon editor for King of Thieves game.
+# This is a fan made dungeon editor for King of Thieves game.
 
 Created using Godot.
 
